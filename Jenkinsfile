@@ -15,11 +15,13 @@ pipeline {
                 //sh "mvn -Dmaven.test.failure.ignore=true clean package"
 
                 // To run Maven on a Windows agent, use
+                 script {
                  GIT_COMMIT_MSG = sh (script: 'git log -1 --pretty=%B ${GIT_COMMIT}', returnStdout: true).trim()
                  GIT_COMMIT_HASH = sh (script: "git log -n 1 --pretty=format:'%H'", returnStdout: true)
                  echo "-------------------"
                  echo "${GIT_COMMIT_HASH}"
                  echo "${GIT_COMMIT_MSG}"
+                 }
                  sh "mvn clean package"
             }
 
